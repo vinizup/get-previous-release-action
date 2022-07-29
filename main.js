@@ -1,4 +1,5 @@
 const { exec } = require("child_process");
+const core = require('@actions/core')
 exec(
   "git rev-list --tags --max-count=1 --skip=1 --no-walk",
   (err, rev, stderr) => {
@@ -23,9 +24,9 @@ exec(
       tag = tag.trim();
 
       console.log("\x1b[32m%s\x1b[0m", `Tag Anterior: ${tag}`);
-      console.log("\x1b[32m%s\x1b[0m", `Found rev: ${rev}`);
+      core.setOutput('tagant', tag)
       console.log(`::set-output name=tag::${tag}`);
-      console.log(`::set-output name=rev::${rev}`);
+      
       process.exit(0);
     });
   }
