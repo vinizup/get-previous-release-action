@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
-const core = require('@actions/core')
-exec(
+const core = require('@actions/core');
+npmexec(
   "git rev-list --tags --max-count=1 --skip=1 --no-walk",
   (err, rev, stderr) => {
     if (err) {
