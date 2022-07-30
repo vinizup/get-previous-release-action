@@ -22,11 +22,24 @@ exec(
 
       tag = tag.trim();
 
-      console.log("\x1b[32m%s\x1b[0m", `Found tag: ${tag}`);
+      exec(`git describe --abbrev=0`, (err, taga, stderr) => {
+        if (err) {
+          console.log("\x1b[33m%s\x1b[0m", "Could not find any tags because: ");
+          console.log("\x1b[31m%s\x1b[0m", stderr);
+          process.exit(1);
+        }
+  
+        taga = taga.trim();
+  
+      console.log(`Found tag: ${tag}`);
+      console.log(`Found tag a: ${taga}`);
       console.log("\x1b[32m%s\x1b[0m", `Found rev: ${rev}`);
       console.log(`::set-output name=tag::${tag}`);
+      console.log(`::set-output name=tag::${taga}`);
       console.log(`::set-output name=rev::${rev}`);
       process.exit(0);
+
+     }); 
     });
   }
 );
