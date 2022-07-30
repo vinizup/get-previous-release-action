@@ -35,7 +35,7 @@ exec(
       console.log(`Found tag a: ${taga}`);
       console.log("\x1b[32m%s\x1b[0m", `Found rev: ${rev}`);
       console.log(`::set-output name=tag::${tag}`);
-      console.log(`::set-output name=tag::${taga}`);
+      console.log(`::set-output name=taga::${taga}`);
       console.log(`::set-output name=rev::${rev}`);
       process.exit(0);
 
