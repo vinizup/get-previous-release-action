@@ -11,48 +11,24 @@ exec(
       process.exit(1);
     }
 
-    rev = rev.trim();
+        rev = rev.trim();
 
-    exec(`git describe --tags ${rev}`, (err, tag, stderr) => {
-      if (err) {
-        console.log("\x1b[33m%s\x1b[0m", "Could not find any tags because: ");
-        console.log("\x1b[31m%s\x1b[0m", stderr);
-        process.exit(1);
-      }
-
-      tag = tag.trim();
-
-      exec(`git describe --abbrev=0`, (err, taga, stderr) => {
-        if (err) {
-          console.log("\x1b[33m%s\x1b[0m", "Could not find any tags because: ");
-          console.log("\x1b[31m%s\x1b[0m", stderr);
-          process.exit(1);
-        }
+    
+            exec(`git log -1 --pretty=format:"%h"`, (err, hashh, stderr) => {
+                if (err) {
+                console.log("\x1b[33m%s\x1b[0m", "Could not find any tags because: ");
+                console.log("\x1b[31m%s\x1b[0m", stderr);
+                process.exit(1);
+                }
+        
+                hashh = hashh.trim();
   
-        taga = taga.trim();
 
-
-        exec(`git log -1 --pretty=format:"%h"`, (err, hashh, stderr) => {
-            if (err) {
-              console.log("\x1b[33m%s\x1b[0m", "Could not find any tags because: ");
-              console.log("\x1b[31m%s\x1b[0m", stderr);
-              process.exit(1);
-            }
-      
-            hashh = hashh.trim();
-  
-      console.log(`Found tag: ${tag}`);
-      console.log(`Found tag a: ${taga}`);
       console.log(`Found tag a: ${hashh}`);
       console.log("\x1b[32m%s\x1b[0m", `Found rev: ${rev}`);
-      console.log(`::set-output name=tag::${tag}`);
       console.log(`::set-output name=hashp::${hashh}`);
-      console.log(`::set-output name=taga::${taga}`);
       console.log(`::set-output name=rev::${rev}`);
       process.exit(0);
 
      }); 
-    }); 
     });
-  }
-);
